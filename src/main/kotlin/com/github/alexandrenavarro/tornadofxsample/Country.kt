@@ -1,6 +1,9 @@
 package com.github.alexandrenavarro.tornadofxsample
 
-data class Country(
-        val name: String,
-        val alpha2Code: String
-)
+import javafx.beans.property.SimpleStringProperty
+
+class Country {
+    var name: String? = null
+    var alpha2Code: String? = null
+    var idProperty: SimpleStringProperty? = null
+}
