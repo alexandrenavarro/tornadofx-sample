@@ -12,7 +12,18 @@ class CountryView : View("country") {
 
     private var nameField: TextField by singleAssign()
 
+    val model = CountryFxModel(FxCountry())
+    var country = FxCountry()
+
+
     init {
+//        runAsync {
+//            countryViewModel.refreshCountries()
+//        } ui {
+//            countryViewModel.countryList.clear()
+//            countryViewModel.countryList.addAll(it)
+//        }
+
         with(root) {
             top {
                 button("refresh").action {
@@ -24,12 +35,14 @@ class CountryView : View("country") {
                     }
                 }
             }
-
             center {
                 tableview(countryViewModel.countryList) {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
 
+                    model.rebindOnChange(this) { selectedCountry ->
+                        country = selectedCountry ?: FxCountry()
+                    }
                 }
             }
 
@@ -37,13 +50,20 @@ class CountryView : View("country") {
                 form {
                     fieldset("Edit Country") {
                         field("Name") {
-                            textfield() {
-                                nameField = this
+                            textfield(model.name)
+                        }
+                        field("Alpha2Code") {
+                            textfield(model.alpha2Code)
+                        }
+                        button("Save") {
+                            enableWhen(model.dirty)
+                            action {
+                                model.commit()
+                                country = model.country
                             }
                         }
-                        button("Save").action {
-                            //save()
-                            println("test")
+                        button("Reset").action {
+                            model.rollback()
                         }
                     }
                 }

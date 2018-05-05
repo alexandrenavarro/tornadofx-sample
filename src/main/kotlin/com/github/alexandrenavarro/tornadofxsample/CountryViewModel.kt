@@ -8,8 +8,9 @@ import tornadofx.*
 
 class CountryViewModel : ViewModel() {
 
-    val countryList = arrayListOf<FxCountry>(
-    ).observable()
+    val countryList = arrayListOf<FxCountry>().observable()
+
+//e
 
     private val countryResource = Feign.builder()
             .encoder(JacksonEncoder())
@@ -22,7 +23,6 @@ class CountryViewModel : ViewModel() {
         Thread.sleep(2000)
         return countryResource.getCountries().toFxCountry()
     }
-
 
     // TODO 
     fun Country.toFxCountry(): FxCountry {
