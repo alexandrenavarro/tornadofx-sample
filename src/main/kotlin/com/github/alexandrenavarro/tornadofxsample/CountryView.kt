@@ -1,19 +1,53 @@
 package com.github.alexandrenavarro.tornadofxsample
 
-import javafx.collections.FXCollections
-import tornadofx.View
-import tornadofx.tableview
+import javafx.scene.control.TextField
+import javafx.scene.layout.BorderPane
+import tornadofx.*
+
 
 class CountryView : View("country") {
-//    val countryList = FXCollections.observableArrayList(
-//            Country("France", "FR", SimpleStringProperty("FR")),
-//            Country("Espagne", "ES", SimpleStringProperty("ES"))
-//    )
 
-    val countryList = FXCollections.observableArrayList("")
+    private val countryViewModel = CountryViewModel()
+    override val root = BorderPane()
 
-    override val root = tableview(countryList) {
-        //column("Name", Country::idProperty)
-        //columnResizePolicy = SmartResize.POLICY
+    private var nameField: TextField by singleAssign()
+
+    init {
+        with(root) {
+            top {
+                button("refresh").action {
+                    runAsync {
+                        countryViewModel.refreshCountries()
+                    } ui {
+                        countryViewModel.countryList.clear()
+                        countryViewModel.countryList.addAll(it)
+                    }
+                }
+            }
+
+            center {
+                tableview(countryViewModel.countryList) {
+                    column("Name", FxCountry::nameProperty)
+                    column("Alpha2Code", FxCountry::alpha2CodeProperty)
+
+                }
+            }
+
+            bottom {
+                form {
+                    fieldset("Edit Country") {
+                        field("Name") {
+                            textfield() {
+                                nameField = this
+                            }
+                        }
+                        button("Save").action {
+                            //save()
+                            println("test")
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 plugins {
@@ -14,25 +15,48 @@ plugins {
 
 }
 
+val javaVersion: JavaVersion by extra { JavaVersion.VERSION_1_8 }
+
 application {
     mainClassName = "com.github.alexandrenavarro.tornadofxsample.TornadofxApp"
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("no.tornado:tornadofx:1.7.15")
-    implementation(kotlin("reflect"))
-    implementation("io.github.openfeign:feign-core:9.6.0")
-    implementation("io.github.openfeign:feign-jackson:9.6.0")
-    implementation("org.springframework.cloud:spring-cloud-openfeign-core:2.0.0.RC1")
-    implementation("org.springframework:spring-web:5.0.5.RELEASE")
+    compile(kotlin("stdlib-jdk8"))
+    compile("no.tornado:tornadofx:1.7.15")
+    compile(kotlin("reflect"))
+    compile("io.github.openfeign:feign-core:9.6.0")
+    compile("io.github.openfeign:feign-jackson:9.6.0")
+
+    // Just set to use Feign with spring
+    compile("org.springframework:spring-web:5.0.5.RELEASE") {
+        exclude("org.springframework", "spring-aop")
+        exclude("org.springframework", "spring-expression")
+    }
+    compile("org.springframework.cloud:spring-cloud-openfeign-core:2.0.0.RC1") {
+        exclude("org.springframework", "spring-aop")
+        exclude("org.springframework", "spring-expression")
+        exclude("org.springframework.boot", "spring-boot-starter")
+        exclude("org.springframework.boot", "spring-boot-starter-aop")
+        exclude("org.springframework.cloud", "spring-cloud-netflix-archaius")
+        exclude("org.springframework.cloud", "spring-cloud-netflix-ribbon")
+    }
+
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
 
 }
 
-val compileKotlin: KotlinCompile<KotlinJvmOptions> by tasks
-compileKotlin.kotlinOptions.jvmTarget = "1.8"
+
+tasks.withType<KotlinJvmCompile> {
+    kotlinOptions {
+        jvmTarget = javaVersion.toString()
+    }
+}
+
+// Equivalent
+//val compileKotlin: KotlinCompile<KotlinJvmOptions> by tasks
+//compileKotlin.kotlinOptions.jvmTarget = "1.8"
 
 repositories {
     jcenter()
@@ -41,11 +65,11 @@ repositories {
 }
 
 
-spotless {
-    kotlin {
-        ktlint()
-        paddedCell()
-    }
-
-}
+//spotless {
+//    kotlin {
+//        ktlint()
+//        paddedCell()
+//    }
+//
+//}
 
