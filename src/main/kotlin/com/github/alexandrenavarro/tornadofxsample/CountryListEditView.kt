@@ -12,8 +12,8 @@ class CountryListEditView : View("country") {
     // ViewModel for list
     private val countryListViewModel = CountryListViewModel()
     // ViewModel for edit
-    private val countryViewModel = CountryEditViewModel(FxCountry())
     private var country = FxCountry()
+    private val countryItemViewModel = CountryItemViewModel()
 
     override val root = BorderPane()
 
@@ -37,31 +37,28 @@ class CountryListEditView : View("country") {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
                     smartResize()
-                    countryViewModel.rebindOnChange(this) { selectedCountry ->
-                        country = selectedCountry ?: FxCountry()
-                    }
-
+                    bindSelected(countryItemViewModel)
                 }
             }
             bottom {
                 form {
                     fieldset("Edit Country") {
                         field("Name") {
-                            textfield(countryViewModel.name)
+                            textfield(countryItemViewModel.name)
                         }
                         field("Alpha2Code") {
-                            textfield(countryViewModel.alpha2Code)
+                            textfield(countryItemViewModel.alpha2Code)
                         }
                         button("Save") {
-                            enableWhen(countryViewModel.dirty)
+                            enableWhen(countryItemViewModel.dirty)
                             action {
-                                countryViewModel.commit()
-                                country = countryViewModel.country
+                                countryItemViewModel.commit()
+                                country = countryItemViewModel.item
                                 logger.info { "Country saved." }
                             }
                         }
                         button("Reset").action {
-                            countryViewModel.rollback()
+                            countryItemViewModel.rollback()
                             logger.info { "Country reset." }
                         }
                     }

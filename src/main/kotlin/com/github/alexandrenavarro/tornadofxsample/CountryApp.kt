@@ -14,6 +14,7 @@ import kotlin.reflect.KClass
 private val logger = KotlinLogging.logger {}
 class CountryApp : App(CountryListEditView::class) {
     init {
+        logger.info { "SpringContext is starting ..." }
         val context = GenericApplicationContext().apply {
             beans {
                 bean<CountryResource> {
@@ -32,6 +33,7 @@ class CountryApp : App(CountryListEditView::class) {
         FX.dicontainer = object : DIContainer {
             override fun <T : Any> getInstance(type: KClass<T>): T = context.getBean(type.java)
         }
+        logger.info { "SpringContext is started." }
         logger.info { "Application is started" }
     }
 

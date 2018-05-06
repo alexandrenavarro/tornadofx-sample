@@ -12,7 +12,7 @@ To test / find solution :
 - Update table for another thread DONE (but need to run if modify observableList binded to TableView)
 - Test master detail DONE
 - Ioc for Feign use spring or tornado.di DONE
-- Update CountryEditViewMode -> CountryItemViewModel : TODO
+- Update CountryEditViewMode -> CountryItemViewModel : DONE
 - Add unit test with testfx : TODO
 - Test Complex mapping like Object with list of Object complex : TODO 
 - Test validation feature : TODO
