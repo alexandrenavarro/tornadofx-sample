@@ -1,16 +1,19 @@
 package com.github.alexandrenavarro.tornadofxsample
 
 import javafx.scene.layout.BorderPane
+import mu.KLogging
 import tornadofx.*
 
 
 class CountryListEditView : View("country") {
 
+    companion object : KLogging()
+
     // ViewModel for list
-    private val countryViewModel = CountryListViewModel()
+    private val countryListViewModel = CountryListViewModel()
     // ViewModel for edit
-    private val model = CountryEditViewModel(FxCountry())
-    var country = FxCountry()
+    private val countryViewModel = CountryEditViewModel(FxCountry())
+    private var country = FxCountry()
 
     override val root = BorderPane()
 
@@ -20,19 +23,21 @@ class CountryListEditView : View("country") {
             top {
                 button("refresh").action {
                     runAsync {
-                        countryViewModel.refreshCountries()
+                        logger.info { "Country List is updating ..." }
+                        countryListViewModel.refreshCountries()
                     } ui {
-                        countryViewModel.countryList.clear()
-                        countryViewModel.countryList.addAll(it)
+                        countryListViewModel.countryList.clear()
+                        countryListViewModel.countryList.addAll(it)
+                        logger.info { "Country List updated." }
                     }
                 }
             }
             center {
-                tableview(countryViewModel.countryList) {
+                tableview(countryListViewModel.countryList) {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
                     smartResize()
-                    model.rebindOnChange(this) { selectedCountry ->
+                    countryViewModel.rebindOnChange(this) { selectedCountry ->
                         country = selectedCountry ?: FxCountry()
                     }
 
@@ -42,24 +47,27 @@ class CountryListEditView : View("country") {
                 form {
                     fieldset("Edit Country") {
                         field("Name") {
-                            textfield(model.name)
+                            textfield(countryViewModel.name)
                         }
                         field("Alpha2Code") {
-                            textfield(model.alpha2Code)
+                            textfield(countryViewModel.alpha2Code)
                         }
                         button("Save") {
-                            enableWhen(model.dirty)
+                            enableWhen(countryViewModel.dirty)
                             action {
-                                model.commit()
-                                country = model.country
+                                countryViewModel.commit()
+                                country = countryViewModel.country
+                                logger.info { "Country saved." }
                             }
                         }
                         button("Reset").action {
-                            model.rollback()
+                            countryViewModel.rollback()
+                            logger.info { "Country reset." }
                         }
                     }
                 }
             }
         }
+        logger.info { "CountryListEditView is initiated" }
     }
 }

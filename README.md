@@ -12,13 +12,19 @@ To test / find solution :
 - Update table for another thread DONE (but need to run if modify observableList binded to TableView)
 - Test master detail DONE
 - Ioc for Feign use spring or tornado.di DONE
+- Update CountryEditViewMode -> CountryItemViewModel : TODO
+- Add unit test with testfx : TODO
+- Test Complex mapping like Object with list of Object complex : TODO 
+- Test validation feature : TODO
+- Test workspace / tab feature : TODO
 
 Find solution
 - easily transform POJO -> javafx property,
     - just generate class like FxCountry, problem extentions method not import,
     - generic FxPojo<xxx>  ?
     - use setCellValueFactory (how)
-- check import (kotlin parser), View must not have *Resource, ViewModel must not have View and only javafx.beans for install
-- Compare RxKotlinFX or ReactorFX on action vs runAsync {} ui {}, runAsync seems ok
+- check import (kotlin parser / klint Rule), View must not have *Resource, ViewModel must not have View and only javafx.beans for install
+- Compare RxKotlinFX or ReactorFX on action vs runAsync {} ui {}, runAsync seems ok except if we want to use cancellable task
+
 
 

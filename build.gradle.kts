@@ -44,6 +44,8 @@ dependencies {
         exclude("org.springframework.cloud", "spring-cloud-netflix-archaius")
         exclude("org.springframework.cloud", "spring-cloud-netflix-ribbon")
     }
+    compile("io.github.microutils:kotlin-logging:1.5.4")
+    runtime("ch.qos.logback:logback-classic:1.0.13")
 
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
