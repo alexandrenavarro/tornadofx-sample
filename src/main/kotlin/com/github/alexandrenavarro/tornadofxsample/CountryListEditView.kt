@@ -1,28 +1,20 @@
 package com.github.alexandrenavarro.tornadofxsample
 
-import javafx.scene.control.TextField
 import javafx.scene.layout.BorderPane
 import tornadofx.*
 
 
-class CountryView : View("country") {
+class CountryListEditView : View("country") {
 
-    private val countryViewModel = CountryViewModel()
-    override val root = BorderPane()
-
-    private var nameField: TextField by singleAssign()
-
-    val model = CountryFxModel(FxCountry())
+    // ViewModel for list
+    private val countryViewModel = CountryListViewModel()
+    // ViewModel for edit
+    private val model = CountryEditViewModel(FxCountry())
     var country = FxCountry()
 
+    override val root = BorderPane()
 
     init {
-//        runAsync {
-//            countryViewModel.refreshCountries()
-//        } ui {
-//            countryViewModel.countryList.clear()
-//            countryViewModel.countryList.addAll(it)
-//        }
 
         with(root) {
             top {
@@ -39,13 +31,11 @@ class CountryView : View("country") {
                 tableview(countryViewModel.countryList) {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
-
                     model.rebindOnChange(this) { selectedCountry ->
                         country = selectedCountry ?: FxCountry()
                     }
                 }
             }
-
             bottom {
                 form {
                     fieldset("Edit Country") {

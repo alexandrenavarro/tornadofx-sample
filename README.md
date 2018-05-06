@@ -3,17 +3,15 @@ tornadofx-sample
 
 To test / find solution :
 - Init with tornado fx : DONE
-- Add a feign resource : DONE
-- Use Model / View / ViewModel : DONE
+- Add a feign resource with correct dependencies : DONE
+- Use Model / View / ViewModel Pattern : DONE
     - The View knows the ViewModel but not the Model.
     - The ViewModel knows the Model but not the View (store state and operations of the view)
     - The Model knows neither.
 - Use runAsync {} ui {} for DONE
 - Update table for another thread DONE (but need to run if modify observableList binded to TableView)
 - Test master detail DONE
-- Ioc for Feign use spring or tornado.di
-- Test RxKotlinFX or ReactorFX on action vs runAsync {} ui {}
-
+- Ioc for Feign use spring or tornado.di DONE
 
 Find solution
 - easily transform POJO -> javafx property,
@@ -21,6 +19,6 @@ Find solution
     - generic FxPojo<xxx>  ?
     - use setCellValueFactory (how)
 - check import (kotlin parser), View must not have *Resource, ViewModel must not have View and only javafx.beans for install
-
+- Compare RxKotlinFX or ReactorFX on action vs runAsync {} ui {}, runAsync seems ok
 
 

@@ -1,26 +1,21 @@
 package com.github.alexandrenavarro.tornadofxsample
 
-import feign.Feign
-import feign.jackson.JacksonDecoder
-import feign.jackson.JacksonEncoder
-import org.springframework.cloud.openfeign.support.SpringMvcContract
 import tornadofx.*
 
-class CountryViewModel : ViewModel() {
+class CountryListViewModel : ViewModel() {
 
     val countryList = arrayListOf<FxCountry>().observable()
 
-//e
+//    private val countryResource = Feign.builder()
+//            .encoder(JacksonEncoder())
+//            .decoder(JacksonDecoder())
+//            .contract(SpringMvcContract())
+//            .target(CountryResource::class.java, "https://restcountries.eu/")
 
-    private val countryResource = Feign.builder()
-            .encoder(JacksonEncoder())
-            .decoder(JacksonDecoder())
-            .contract(SpringMvcContract())
-            .target(CountryResource::class.java, "https://restcountries.eu/")
-
+    private val countryResource: CountryResource by di()
 
     fun refreshCountries(): List<FxCountry> {
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         return countryResource.getCountries().toFxCountry()
     }
 

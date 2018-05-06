@@ -16,6 +16,7 @@ plugins {
 }
 
 val javaVersion: JavaVersion by extra { JavaVersion.VERSION_1_8 }
+val springVersion = "5.0.5.RELEASE"
 
 application {
     mainClassName = "com.github.alexandrenavarro.tornadofxsample.TornadofxApp"
@@ -31,11 +32,11 @@ dependencies {
     // Just set to use Feign with spring
     compile("org.springframework:spring-web:5.0.5.RELEASE") {
         exclude("org.springframework", "spring-aop")
-        exclude("org.springframework", "spring-expression")
+        //exclude("org.springframework", "spring-expression") // need if use a beans {}
     }
     compile("org.springframework.cloud:spring-cloud-openfeign-core:2.0.0.RC1") {
         exclude("org.springframework", "spring-aop")
-        exclude("org.springframework", "spring-expression")
+        //exclude("org.springframework", "spring-expression") // need if use a beans {}
         exclude("org.springframework.boot", "spring-boot-starter")
         exclude("org.springframework.boot", "spring-boot-starter-aop")
         exclude("org.springframework.cloud", "spring-cloud-netflix-archaius")
