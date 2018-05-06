@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 interface CountryResource {
 
-    @RequestMapping(method = [(RequestMethod.GET)], value = "/rest/v2/all")
+    @RequestMapping(method = [(RequestMethod.GET)], value = ["/rest/v2/all"])
     fun getCountries(): List<Country>
 }

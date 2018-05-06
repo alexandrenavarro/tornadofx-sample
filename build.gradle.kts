@@ -24,7 +24,9 @@ application {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
-    compile("no.tornado:tornadofx:1.7.15")
+    compile("no.tornado:tornadofx:1.7.15") {
+        exclude("org.glassfish", "javax.json")
+    }
     compile(kotlin("reflect"))
     compile("io.github.openfeign:feign-core:9.6.0")
     compile("io.github.openfeign:feign-jackson:9.6.0")

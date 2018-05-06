@@ -31,9 +31,11 @@ class CountryListEditView : View("country") {
                 tableview(countryViewModel.countryList) {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
+                    smartResize()
                     model.rebindOnChange(this) { selectedCountry ->
                         country = selectedCountry ?: FxCountry()
                     }
+
                 }
             }
             bottom {
