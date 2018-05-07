@@ -13,7 +13,7 @@ To test / find solution :
 - Test master detail DONE
 - Ioc for Feign use spring or tornado.di DONE
 - Update CountryEditViewMode -> CountryItemViewModel : DONE
-- Add unit test with testfx : TODO
+- Add unit test with testfx : TODO see https://github.com/edvin/tornadofx/issues/720
 - Test Complex mapping like Object with list of Object complex : TODO 
 - Test validation feature : TODO
 - Test workspace / tab feature : TODO

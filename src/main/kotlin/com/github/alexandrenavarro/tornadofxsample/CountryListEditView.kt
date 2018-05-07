@@ -10,10 +10,11 @@ class CountryListEditView : View("country") {
     companion object : KLogging()
 
     // ViewModel for list
-    private val countryListViewModel = CountryListViewModel()
+    private val countryListViewModel by inject<CountryListViewModel>()
     // ViewModel for edit
     private var country = FxCountry()
-    private val countryItemViewModel = CountryItemViewModel()
+    private val countryItemViewModel by inject<CountryItemViewModel>()
+
 
     override val root = BorderPane()
 
