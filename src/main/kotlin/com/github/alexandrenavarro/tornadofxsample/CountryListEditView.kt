@@ -13,13 +13,11 @@ class CountryListEditView : View("country") {
     private val countryListViewModel by inject<CountryListViewModel>()
     // ViewModel for edit
     private var country = FxCountry()
-    private val countryItemViewModel by inject<CountryItemViewModel>()
-
+    val countryItemViewModel by inject<CountryItemViewModel>()
 
     override val root = BorderPane()
 
     init {
-
         with(root) {
             top {
                 button("refresh").action {
@@ -32,6 +30,7 @@ class CountryListEditView : View("country") {
                         logger.info { "Country List updated." }
                     }
                 }
+
             }
             center {
                 tableview(countryListViewModel.countryList) {
@@ -62,6 +61,7 @@ class CountryListEditView : View("country") {
                             countryItemViewModel.rollback()
                             logger.info { "Country reset." }
                         }
+
                     }
                 }
             }

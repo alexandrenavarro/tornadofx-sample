@@ -2,9 +2,10 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.jetbrains.kotlin.metadata.jvm.deserialization.bytesToStrings
 
 plugins {
-    kotlin("jvm") version "1.2.41"
+    id("org.jetbrains.kotlin.jvm") version "1.2.41"
     application
     distribution
     id("maven-publish")
@@ -49,6 +50,14 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
+    testImplementation("org.amshove.kluent:kluent:1.38")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha01")
+    testImplementation("org.testfx:testfx-junit:4.0.13-alpha")
+
+    //testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.0")
+    //testImplementation(("org.assertj:assertj-core:3.10.0"))
+
+
 
 }
 
@@ -58,6 +67,7 @@ tasks.withType<KotlinJvmCompile> {
         jvmTarget = javaVersion.toString()
     }
 }
+
 
 // Equivalent
 //val compileKotlin: KotlinCompile<KotlinJvmOptions> by tasks
