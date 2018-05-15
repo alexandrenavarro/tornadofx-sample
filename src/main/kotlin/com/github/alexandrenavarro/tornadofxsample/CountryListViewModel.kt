@@ -2,7 +2,7 @@ package com.github.alexandrenavarro.tornadofxsample
 
 import tornadofx.*
 
-class CountryListViewModel : ViewModel() {
+open class CountryListViewModel : ViewModel() {
 
     val countryList = arrayListOf<FxCountry>().observable()
 

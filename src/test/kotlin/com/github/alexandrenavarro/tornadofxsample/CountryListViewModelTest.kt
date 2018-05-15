@@ -1,11 +1,10 @@
 package com.github.alexandrenavarro.tornadofxsample
 
+//import org.amshove.kluent.mock
 import com.nhaarman.mockitokotlin2.whenever
 import mu.KLogging
 import org.amshove.kluent.`should be equal to`
-import org.amshove.kluent.mock
-import org.springframework.context.support.GenericApplicationContext
-import org.springframework.context.support.beans
+import org.mockito.Mockito
 import tornadofx.*
 import kotlin.reflect.KClass
 import kotlin.test.Test
@@ -18,29 +17,40 @@ class CountryListViewModelTest {
     fun test() {
         var countryListViewModel = CountryListViewModel()
 
-        val context = GenericApplicationContext().apply {
-            beans {
-                bean<CountryResource> {
-                    var mock = mock<CountryResource>()
-                    whenever(mock.getCountries()).thenReturn(listOf(Country()))
-                    mock
+// with mocking in a context spring
+//        val context = GenericApplicationContext().apply {
+//            beans {
+//                bean<CountryResource> {
+//                    var mock = mock<CountryResource>()
+//                    whenever(mock.getCountries()).thenReturn(listOf(Country()))
+//                    mock
+//
+//                }
+//            }.initialize(this)
+//            refresh()
+//        }
+//
+//        FX.dicontainer = object : DIContainer {
+//            override fun <T : Any> getInstance(type: KClass<T>): T = context.getBean(type.java)
+//        }
 
-                }
-            }.initialize(this)
-            refresh()
-        }
+// with mocking direct with DIContainer
 
         FX.dicontainer = object : DIContainer {
-            override fun <T : Any> getInstance(type: KClass<T>): T = context.getBean(type.java)
-        }
+            override fun <T : Any> getInstance(type: KClass<T>): T {
+                return when (type) {
+                    CountryResource::class -> {
+                        var mock = Mockito.mock(type.java)
+                        if (mock is CountryResource) {
+                            whenever(mock.getCountries()).thenReturn(listOf(Country()))
+                        }
+                        mock
+                    }
+                    else -> Mockito.mock(type.java)
+                }
+            }
 
-        // TODO improve it mockito directly in DIContainer
-//        FX.dicontainer = object : DIContainer {
-//            override fun <T : Any> getInstance(type: KClass<T>): T {
-//                logger.info { "type:$type" }
-//                TODO()
-//            }
-//        }
+        }
 
         countryListViewModel.refreshCountries().size `should be equal to` 1
 

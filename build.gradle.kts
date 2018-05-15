@@ -9,10 +9,12 @@ plugins {
     application
     distribution
     id("maven-publish")
+    id("jacoco")
     id("com.github.ben-manes.versions") version "0.17.0"
     id("com.diffplug.gradle.spotless") version "3.10.0"
     id("org.sonarqube") version "2.6.2"
     id("net.researchgate.release") version "2.6.0"
+
 
 }
 
@@ -60,6 +62,13 @@ dependencies {
 
 
 }
+
+jacoco {
+    toolVersion = "0.7.9"
+
+}
+
+
 
 
 tasks.withType<KotlinJvmCompile> {
