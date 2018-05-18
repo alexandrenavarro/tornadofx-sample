@@ -5,12 +5,12 @@ import mu.KLogging
 import tornadofx.*
 
 
-class CountryListEditView : View("country") {
+open class CountryListEditView : View("country") {
 
     companion object : KLogging()
 
     // ViewModel for list
-    private val countryListViewModel by inject<CountryListViewModel>()
+    val countryListViewModel by inject<CountryListViewModel>()
     // ViewModel for edit
     private var country = FxCountry()
     val countryItemViewModel by inject<CountryItemViewModel>()

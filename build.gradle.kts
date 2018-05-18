@@ -27,7 +27,7 @@ application {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
-    compile("no.tornado:tornadofx:1.7.15") {
+    compile("no.tornado:tornadofx:1.7.17-SNAPSHOT") {
         exclude("org.glassfish", "javax.json")
     }
     compile(kotlin("reflect"))
@@ -61,6 +61,12 @@ dependencies {
 
 
 
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
 }
 
 jacoco {

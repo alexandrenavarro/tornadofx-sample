@@ -1,44 +1,36 @@
 package com.github.alexandrenavarro.tornadofxsample
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
+
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.verify
 import javafx.scene.Scene
 import javafx.stage.Stage
+import mu.KLogging
 import org.junit.Test
-import org.mockito.Mockito
 import org.testfx.api.FxAssert.verifyThat
 import org.testfx.api.FxToolkit
 import org.testfx.framework.junit.ApplicationTest
 import org.testfx.matcher.control.LabeledMatchers.hasText
 import org.testfx.util.DebugUtils.informedErrorMessage
 import tornadofx.*
-import kotlin.reflect.KClass
 
 
 class CountryListEditViewTest : ApplicationTest() {
 
-    var countryResource: CountryResource? = null
+    companion object : KLogging()
+
+    private val countryList: MutableList<FxCountry> = ArrayList<FxCountry>().apply {
+        add(FxCountry().apply { name = "name"; alpha2Code = "alpha" })
+    }
+    var countryListViewModel = mock<CountryListViewModel> {
+        on { refreshCountries() } doReturn countryList
+        on { countryList } doReturn countryList.observable()
+    }
 
     override fun start(stage: Stage?) {
-        FX.dicontainer = object : DIContainer {
-            override fun <T : Any> getInstance(type: KClass<T>): T {
-                return when (type) {
-                    CountryResource::class -> {
-                        var mock = Mockito.mock(type.java)
-                        if (mock is CountryResource) {
-                            countryResource = mock
-                            whenever(mock.getCountries()).thenReturn(listOf(Country()))
-                        }
-                        mock
-                    }
-                    else -> Mockito.mock(type.java)
-                }
-            }
-        }
-
-        // TODO how to set the mock on CountryListEditView.countryItemViewModel instead of only mocking di() in the ViewModel
-        val countryListViewModel: CountryListViewModel = mock<CountryListViewModel>()
-
+        //setInScope(countryListViewModel)
+        setInScope(countryListViewModel, kclass = CountryListViewModel::class)
         val countryListEditView = CountryListEditView()
         stage!!.scene = Scene(countryListEditView.root, 100.0, 100.0)
         stage.show()
@@ -50,15 +42,15 @@ class CountryListEditViewTest : ApplicationTest() {
     }
 
     @Test
+    fun should_click_on_button() {
+        verifyThat("refresh", hasText("refresh"), informedErrorMessage(this))
+        clickOn("refresh")
+        verify(countryListViewModel).refreshCountries()
+    }
+
+    @Test
     fun should_contain_refresh_button() {
         verifyThat("refresh", hasText("refresh"), informedErrorMessage(this))
     }
 
-    @Test
-    fun should_click_on_button() {
-        clickOn("refresh")
-
-        //verify(countryResource)?.getCountries()
-
-    }
 }
