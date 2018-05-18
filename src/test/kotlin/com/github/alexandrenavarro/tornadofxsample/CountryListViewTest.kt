@@ -29,8 +29,7 @@ class CountryListEditViewTest : ApplicationTest() {
     }
 
     override fun start(stage: Stage?) {
-        //setInScope(countryListViewModel)
-        setInScope(countryListViewModel, kclass = CountryListViewModel::class)
+        setInScope(countryListViewModel, kclass = CountryListViewModel::class) // waiting https://github.com/edvin/tornadofx/issues/728
         val countryListEditView = CountryListEditView()
         stage!!.scene = Scene(countryListEditView.root, 100.0, 100.0)
         stage.show()

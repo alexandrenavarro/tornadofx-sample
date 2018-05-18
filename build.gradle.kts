@@ -56,10 +56,6 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha01")
     testImplementation("org.testfx:testfx-junit:4.0.13-alpha")
 
-    //testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.0")
-    //testImplementation(("org.assertj:assertj-core:3.10.0"))
-
-
 
 }
 
@@ -73,8 +69,6 @@ jacoco {
     toolVersion = "0.7.9"
 
 }
-
-
 
 
 tasks.withType<KotlinJvmCompile> {
@@ -100,6 +94,5 @@ repositories {
 //        ktlint()
 //        paddedCell()
 //    }
-//
 //}
 

@@ -14,8 +14,8 @@ To test / find solution :
 - Ioc for Feign use spring or tornado.di DONE
 - Update CountryEditViewMode -> CountryItemViewModel : DONE
 - Add Unit test for ViewModel : DONE
-- Add unit test with testfx for :  DONE partially, missed how to mock a ViewModel in see CountryListViewModelTest,  https://github.com/edvin/tornadofx/issues/720
-- Compare RxKotlinFX or ReactorFX on action vs coroutine vs runAsync {} ui {}, TODO runAsync seems ok except if we want to use cancellable task
+- Add unit test with testfx for :  DONE but missed PR on https://github.com/edvin/tornadofx/issues/728
+- Compare RxKotlinFX or ReactorFX on action vs coroutine vs runAsync {} ui {}, DONE runAsync seems ok except if we want to use cancellable task
 - check import (kotlin parser / klint Rule), View must not have *Resource, ViewModel must not have View and only javafx.beans for install TODO
 
 
