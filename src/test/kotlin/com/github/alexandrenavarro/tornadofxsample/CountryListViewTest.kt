@@ -1,8 +1,8 @@
 package com.github.alexandrenavarro.tornadofxsample
 
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import javafx.scene.Scene
 import javafx.stage.Stage

@@ -8,3 +8,4 @@
  */
 
 rootProject.name = "tornadofx-sample"
+enableFeaturePreview("IMPROVED_POM_SUPPORT")

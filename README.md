@@ -1,7 +1,16 @@
 # tornadofx-sample
 tornadofx-sample
 
-To test / find solution :
+# To build
+./gradlew build
+
+Caution, it uses actually the last version of tornadofx 1.7.17-SNAPSHOT, you have to compile tornadofx it first.
+
+# To run
+Run com.github.alexandrenavarro.tornadofxsample.CountryApp
+
+
+# To test / find solution :
 - Init with tornado fx : DONE
 - Add a feign resource with correct dependencies : DONE
 - Use Model / View / ViewModel Pattern : DONE
