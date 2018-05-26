@@ -25,6 +25,7 @@ val springCloudVersion = "Finchley.RC1"
 // implementation
 val tornadoFxVersion = "1.7.17-SNAPSHOT"
 val kotlinLoggingVersion = "1.5.4"
+val kotlinxCoroutinesJavafxVersion = "0.22.5"
 
 // runtime
 val logbackClassicVersion = "1.2.3"
@@ -43,34 +44,44 @@ application {
 
 dependencies {
 
+    // bomd
     implementation("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
     implementation("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
 
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("no.tornado:tornadofx:$tornadoFxVersion") {
-        exclude("org.glassfish", "javax.json")
-    }
-    implementation(kotlin("reflect"))
-    implementation("io.github.openfeign:feign-core")
-    implementation("io.github.openfeign:feign-jackson")
 
-    // Just set to use Feign with spring
+    // kotlin base
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
+
+    // spring / feign : Just set to use Feign with spring
     implementation("org.springframework:spring-web") {
         exclude("org.springframework", "spring-aop")
-        //exclude("org.springframework", "spring-expression") // need if use a beans {}
     }
     implementation("org.springframework.cloud:spring-cloud-openfeign-core") {
         exclude("org.springframework", "spring-aop")
-        //exclude("org.springframework", "spring-expression") // need if use a beans {}
         exclude("org.springframework.boot", "spring-boot-starter")
         exclude("org.springframework.boot", "spring-boot-starter-aop")
         exclude("org.springframework.cloud", "spring-cloud-netflix-archaius")
         exclude("org.springframework.cloud", "spring-cloud-netflix-ribbon")
     }
+    implementation("io.github.openfeign:feign-core")
+    implementation("io.github.openfeign:feign-jackson")
+
+    // logging
     implementation("io.github.microutils:kotlin-logging:$kotlinLoggingVersion")
 
+    // tornadofx
+    implementation("no.tornado:tornadofx:$tornadoFxVersion") {
+        exclude("org.glassfish", "javax.json")
+    }
+
+    // coroutine javafx
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$kotlinxCoroutinesJavafxVersion")
+
+    // logging runtime
     runtime("ch.qos.logback:logback-classic:$logbackClassicVersion")
 
+    // test
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")

@@ -24,7 +24,7 @@ Run com.github.alexandrenavarro.tornadofxsample.CountryApp
 - Update CountryEditViewMode -> CountryItemViewModel : DONE
 - Add Unit test for ViewModel : DONE
 - Add unit test with testfx for :  DONE but missed PR on https://github.com/edvin/tornadofx/issues/728
-- Compare RxKotlinFX or ReactorFX on action vs coroutine vs runAsync {} ui {}, DONE runAsync seems ok except if we want to use cancellable task
+- Compare RxKotlinFX or ReactorFX on action vs coroutine vs runAsync {} ui {}, DONE runAsync ui is simpler than coroutine to understand and suffisant in most of the cases
 - check import (kotlin parser / klint Rule), View must not have *Resource, ViewModel must not have View and only javafx.beans for install TODO
 
 
