@@ -38,12 +38,12 @@ open class CountryListEditView : View("country") {
                     button("refresh with coroutine").action {
                         // Use with coroutine
                         launch(UI) {
-                            val asyncJob = async {
-                                countryListViewModel.refreshCountriesSuspend()
+                            val deferredResult = async {
+                                countryListViewModel.refreshCountries()
                             }
                             // launch coroutine in UI context
                             logger.info { "Country List is updating ..." }
-                            val result = asyncJob.await()
+                            val result = deferredResult.await()
                             countryListViewModel.countryList.clear()
                             countryListViewModel.countryList.addAll(result)
                             logger.info { "Country List updated." }

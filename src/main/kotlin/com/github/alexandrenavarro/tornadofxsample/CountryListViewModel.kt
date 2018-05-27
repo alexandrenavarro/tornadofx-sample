@@ -17,13 +17,6 @@ class CountryListViewModel : ViewModel() {
         return countryResource.getCountries().toFxCountry()
     }
 
-    suspend fun refreshCountriesSuspend(): List<FxCountry> {
-
-        logger.info {"refreshing Countries ..."}
-        Thread.sleep(1000)
-        return countryResource.getCountries().toFxCountry()
-    }
-
 
     // TODO can't us it if not define here, check why
     fun Country.toFxCountry(): FxCountry {
