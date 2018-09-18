@@ -30,8 +30,7 @@ open class CountryListEditView : View("country") {
                             logger.info { "Country List is updating ..." }
                             countryListViewModel.refreshCountries()
                         } ui {
-                            countryListViewModel.countryList.clear()
-                            countryListViewModel.countryList.addAll(it)
+                            countryListViewModel.state.updateState(it)
                             logger.info { "Country List updated." }
                         }
                     }
@@ -44,15 +43,14 @@ open class CountryListEditView : View("country") {
                             // launch coroutine in UI context
                             logger.info { "Country List is updating ..." }
                             val result = deferredResult.await()
-                            countryListViewModel.countryList.clear()
-                            countryListViewModel.countryList.addAll(result)
+                            countryListViewModel.state.updateState(result)
                             logger.info { "Country List updated." }
                         }
                     }
                 }
             }
             center {
-                tableview(countryListViewModel.countryList) {
+                tableview(countryListViewModel.state.countryList) {
                     column("Name", FxCountry::nameProperty)
                     column("Alpha2Code", FxCountry::alpha2CodeProperty)
                     smartResize()
