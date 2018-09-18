@@ -23,7 +23,7 @@ val springBootVersion = "2.0.2.RELEASE"
 val springCloudVersion = "Finchley.RC1"
 
 // implementation
-val tornadoFxVersion = "1.7.17-SNAPSHOT"
+val tornadoFxVersion = "1.7.17"
 val kotlinLoggingVersion = "1.5.4"
 val kotlinxCoroutinesJavafxVersion = "0.22.5"
 
